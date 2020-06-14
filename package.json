@@ -1,0 +1,186 @@
+{
+  "name": "@folio/requests",
+  "version": "2.0.1",
+  "description": "Requests manager",
+  "repository": "folio-org/ui-requests",
+  "publishConfig": {
+    "registry": "https://repository.folio.org/repository/npm-folio/"
+  },
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "main": "src/index.js",
+  "stripes": {
+    "actsAs": [
+      "app"
+    ],
+    "displayName": "ui-requests.meta.title",
+    "route": "/requests",
+    "home": "/requests?filters=&sort=Request date",
+    "hasSettings": false,
+    "icons": [
+      {
+        "name": "app",
+        "alt": "Requests",
+        "title": "Requests manager"
+      }
+    ],
+    "queryResource": "query",
+    "okapiInterfaces": {
+      "cancellation-reason-storage": "1.1",
+      "circulation": "9.0",
+      "inventory": "10.0",
+      "request-storage": "3.0",
+      "pick-slips": "0.1"
+    },
+    "permissionSets": [
+      {
+        "permissionName": "module.requests.enabled",
+        "displayName": "UI: Requests module is enabled"
+      },
+      {
+        "permissionName": "ui-requests.moveRequest",
+        "displayName": "Requests: Move to new item, reorder queue",
+        "visible": true,
+        "subPermissions": [
+          "circulation.requests.item.move.post",
+          "circulation.rules.request-policy.get",
+          "ui-requests.reorderQueue"
+        ]
+      },
+      {
+        "permissionName": "ui-requests.reorderQueue",
+        "displayName": "Requests: Reorder queue",
+        "visible": true,
+        "subPermissions": [
+          "circulation.requests.queue.reorder.collection.post",
+          "circulation.rules.request-policy.get"
+        ]
+      },
+      {
+        "permissionName": "ui-requests.all",
+        "displayName": "Requests: All permissions",
+        "description": "All permissions for the Requests app",
+        "subPermissions": [
+          "ui-requests.view",
+          "ui-requests.create",
+          "ui-requests.edit",
+          "ui-requests.moveRequest",
+          "ui-requests.reorderQueue"
+        ],
+        "visible": true
+      },
+      {
+        "permissionName": "ui-requests.view",
+        "displayName": "Requests: View",
+        "subPermissions": [
+          "module.requests.enabled",
+          "circulation.loans.collection.get",
+          "circulation.requests.collection.get",
+          "circulation.requests.item.get",
+          "circulation-storage.cancellation-reasons.collection.get",
+          "circulation-storage.loans.collection.get",
+          "circulation-storage.loans.item.get",
+          "circulation-storage.requests.collection.get",
+          "circulation-storage.requests.item.get",
+          "users.collection.get",
+          "users.item.get",
+          "proxiesfor.collection.get",
+          "inventory-storage.service-points.collection.get",
+          "inventory-storage.service-points.item.get",
+          "addresstypes.collection.get",
+          "usergroups.collection.get",
+          "configuration.entries.collection.get",
+          "inventory.items.collection.get",
+          "inventory.items.item.get",
+          "inventory.instances.item.get",
+          "inventory.instances.collection.get",
+          "inventory-storage.items.collection.get",
+          "inventory-storage.items.item.get",
+          "inventory-storage.holdings.collection.get",
+          "inventory-storage.holdings.item.get",
+          "inventory-storage.instances.item.get",
+          "inventory-storage.instances.collection.get",
+          "manualblocks.collection.get",
+          "circulation.requests.hold-shelf-clearance-report.get"
+        ],
+        "visible": true
+      },
+      {
+        "permissionName": "ui-requests.create",
+        "displayName": "Requests: View, create",
+        "subPermissions": [
+          "ui-requests.view",
+          "circulation.requests.item.post",
+          "circulation-storage.requests.item.post",
+          "inventory-storage.locations.item.get"
+        ],
+        "visible": true
+      },
+      {
+        "permissionName": "ui-requests.edit",
+        "displayName": "Requests: View, edit, cancel",
+        "subPermissions": [
+          "ui-requests.view",
+          "circulation.requests.item.put",
+          "circulation-storage.requests.collection.delete",
+          "circulation-storage.requests.item.put",
+          "circulation-storage.requests.item.delete"
+        ],
+        "visible": true
+      }
+    ]
+  },
+  "scripts": {
+    "start": "stripes serve",
+    "lint": "eslint .",
+    "test": "stripes test karma"
+  },
+  "devDependencies": {
+    "@bigtest/interactor": "^0.9.1",
+    "@bigtest/mirage": "^0.0.1",
+    "@bigtest/mocha": "^0.5.2",
+    "@bigtest/react": "^0.1.2",
+    "@folio/eslint-config-stripes": "^5.1.0",
+    "@folio/stripes": "^3.0.0",
+    "@folio/stripes-cli": "^1.11.0",
+    "@folio/stripes-core": "^4.0.0",
+    "babel-eslint": "^10.0.3",
+    "chai": "^4.2.0",
+    "core-js": "^3.6.4",
+    "eslint": "^6.2.1",
+    "mocha": "^5.2.0",
+    "react": "^16.5.1",
+    "react-dom": "^16.5.1",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.0.0",
+    "redux": "^4.0.0",
+    "regenerator-runtime": "^0.13.3",
+    "sinon": "^7.2.0"
+  },
+  "dependencies": {
+    "@folio/react-intl-safe-html": "^1.0.2",
+    "html-to-react": "^1.3.3",
+    "lodash": "^4.17.4",
+    "moment-timezone": "^0.5.14",
+    "prop-types": "^15.5.10",
+    "query-string": "^5.1.0",
+    "react-barcode": "^1.3.2",
+    "react-beautiful-dnd": "^11.0.5",
+    "react-hot-loader": "^4.3.12",
+    "react-router-prop-types": "^1.0.4",
+    "react-to-print": "^2.3.2",
+    "redux-form": "^7.0.3"
+  },
+  "peerDependencies": {
+    "@folio/stripes": "^3.0.0",
+    "react": "*",
+    "react-intl": "^2.4.0",
+    "react-router": "^4.0.0",
+    "react-router-dom": "^4.0.0"
+  },
+  "optionalDependencies": {
+    "@folio/plugin-find-user": "^2.0.0"
+  }
+}
